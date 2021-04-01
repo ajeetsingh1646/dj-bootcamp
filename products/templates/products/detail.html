@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<h2>
+    This template is not used, first default(root) templates directory checked if there is a required template than it is loaded. 
+    If products/detail.html is not present in root templates directory than templates inside the particular app templates are loaded.  
+    
+    Hii there!, Product Id is: {{object.id}}
+
+</h2>
+{% endblock content %}
