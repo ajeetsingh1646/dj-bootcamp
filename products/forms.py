@@ -10,7 +10,9 @@ class ProductModelForm(forms.ModelForm):
         model = Product
         fields = [
             'title',
-            'content'
+            'content',
+            'price',
+            'inventory'
         ]
     
     # data validations
@@ -26,5 +28,16 @@ class ProductModelForm(forms.ModelForm):
             raise forms.ValidationError("Content should be minimum 5 characters.")
         return data
 
+    def clean_prices(self):
+        data = self.cleaned_data.get('price')
+        if data < 10.00:
+            raise forms.ValidationError("Price of the product should be greater than 10 rupees.")
+        return data
+
+    def clean_inventory(self):
+        data = self.cleaned_data.get('inventory')
+        if data < 0:
+            raise forms.ValidatiionError("Number of products can't be negative.")
+        return data
 
 

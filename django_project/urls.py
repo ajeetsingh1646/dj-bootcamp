@@ -22,19 +22,19 @@ from accounts.views import (
     logout_view
 )
 from django.views.generic import TemplateView
-
+from orders.views import order_checkout_view
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='base.html')),
     path('admin/', admin.site.urls),
     path('search/', views.search_view),
     path('login/', login_view),
+    path('checkout/', order_checkout_view),
     path('register/', register_view),
     path('logout/', logout_view),
     #path('bad_view/', views.bad_view),
     path('product/create/', views.product_create_view),
     path('product/', views.product_list_view),
     path('product/<int:id>/', views.detail_home_view),
-
 
 ]
