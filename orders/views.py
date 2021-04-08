@@ -12,6 +12,8 @@ def order_checkout_view(request):
     if not qs.exists():
         return redirect("/")
     product = qs.first()
+    # if product.has_inventory == 0:
+    #     return redirect('/no-inventory')
     user = request.user
     order_id = request.session.get('order_id')  # CART
     order_obj = None
@@ -22,20 +24,24 @@ def order_checkout_view(request):
         order_id = None
     if order_id == None:
         new_creation = True
-        Order.objects.create(product = product, user = user)
+        order_obj = Order.objects.create(product=product, user=user)
     if order_obj != None and new_creation == False:
         if order_obj.product.id != product.id:
-            Order.objects.create(product = product, user = user)
-    request.session['order_id'] = order_id
+            order_obj = Order.objects.create(product=product, user=user)
+    request.session['order_id'] = order_obj.id
     # initialize the form
-    form = OrderForm(request.POST or None, product=product, instance= order_obj) # dealing with forms
+    form = OrderForm(request.POST or None, product=product, instance=order_obj) # dealing with forms
     if form.is_valid():
-        order_obj_shipping_address = form.cleaned_data.get('shipping_address')
-        order_obj_billing_address = form.cleaned_data.get('billing_address')
+        order_obj.shipping_address = form.cleaned_data.get('shipping_address')
+        order_obj.billing_address = form.cleaned_data.get('billing_address')
+        order_obj.mark_paid(save=False)
         order_obj.save()
-            
+        # del request.session['order_id']
+        # return redirect("/success")
+
     context = { 
         'form': form,
+        'object': order_obj
     }
     print(order_id)
-    return render(request,'forms.html',context)
+    return render(request,'orders/checkout.html',context)

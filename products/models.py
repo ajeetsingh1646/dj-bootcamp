@@ -17,6 +17,12 @@ class Product(models.Model):
 
 
     def has_inventory(self):
-        return False       # True or False
+        return self.inventory > 0       # True or False
 
-
+    def remove_item_from_inventory(self, count=1, save=True):
+        current_inv = self.inventory
+        current_inv -= count
+        self.inventory = current_inv
+        if save == True:
+            self.save()
+        return self.inventory
