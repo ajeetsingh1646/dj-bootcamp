@@ -1,7 +1,13 @@
 from django.db import models
 from django.conf import settings    # only in models.py for users
-
+from .storages import ProtectedStorage
 # Create your models here.
+
+# def get_storage_location():       # used in production phase
+#     if settings.DEBUG:
+#         return ProtectedStorage()
+#     return LiveProtectedStorage
+
 
 User = settings.AUTH_USER_MODEL         # for better authentication visit https://www.django-allauth.com
 
@@ -9,6 +15,8 @@ class Product(models.Model):
     #id = models.AutoField()                       #default every table has one
     user = models.ForeignKey(User, null=True,on_delete= models.SET_NULL)
     # user = models.ForeignKey(User, null=True,on_delete= models.CASCADE)
+    images = models.ImageField(upload_to='products/',null=True,blank=True)
+    media = models.FileField(storage=ProtectedStorage,upload_to='products/',null=True,blank=True)
     title = models.CharField(max_length=200)
     content = models.TextField(null=True,blank=True)
     price = models.DecimalField(max_digits=10,decimal_places=2, default=0.00)

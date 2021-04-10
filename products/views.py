@@ -30,10 +30,16 @@ def product_create_view(request, *args, **kwargs):
     #             title_from_input = my_form.cleaned_data.get('title')
     #             Product.objects.create(title = title_from_input)
     #             #print("post_data", post_data)
-    form = ProductModelForm(request.POST or None)
+    form = ProductModelForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         obj = form.save(commit=False) # line 32 and 35 are equals to the lines 39, 40
         # do some stuff 
+        image = request.FILES.get('images')
+        if image:
+            obj.image = image
+        media = request.FILES.get('media')
+        if media:
+            obj.media = media    
         obj.user = request.user    #added after adding user field in models.py
         obj.save()
         print(request.POST)

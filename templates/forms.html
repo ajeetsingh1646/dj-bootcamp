@@ -2,12 +2,13 @@
 
 {% block content %}
 
-<form action="." method="POST">
+<form action="." method="POST" enctype="multipart/form-data">
   {% csrf_token %}
   <div class="form-row align-items-center">
     <div class="col-auto">
 
       {{ form.as_p }}
+
       <button type="submit" class="btn btn-primary mb-2">Submit</button>
     </div>
   </div>

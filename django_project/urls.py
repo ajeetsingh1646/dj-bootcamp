@@ -22,7 +22,11 @@ from accounts.views import (
     logout_view
 )
 from django.views.generic import TemplateView
-from orders.views import order_checkout_view
+from orders.views import order_checkout_view, download_order
+
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='base.html')),
@@ -30,6 +34,7 @@ urlpatterns = [
     path('search/', views.search_view),
     path('login/', login_view),
     path('checkout/', order_checkout_view),
+    path('download/', download_order),
     path('register/', register_view),
     path('logout/', logout_view),
     #path('bad_view/', views.bad_view),
@@ -38,3 +43,7 @@ urlpatterns = [
     path('product/<int:id>/', views.detail_home_view),
 
 ]
+
+if settings.DEBUG == True:
+    urlpatterns += static(settings.STATIC_URL,document_root= settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,document_root= settings.MEDIA_ROOT)
