@@ -29,7 +29,7 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='base.html')),
+    path('', views.featured_product_view),
     path('admin/', admin.site.urls),
     path('search/', views.search_view),
     path('login/', login_view),

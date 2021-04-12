@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if can_order %}
+        <h1>{{ product.title}}</h1>
+        {% if product.images %}
+            <img src="{{ product.images }}" alt="Product Image" />
+        {% endif %}
+        <p>{{ product.content}}</p>
+        <a href="/checkout"> ₨.{{product.price}} Purchase</a>
+    {% else %}
+
+    {{ form.as_p }}
+    
+    {% endif %}
+
+{% endblock content %}

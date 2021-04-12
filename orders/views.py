@@ -14,10 +14,15 @@ from django.http import Http404,HttpResponse
 
 @login_required
 def order_checkout_view(request):
-    qs = Product.objects.filter(featured=True)
-    if not qs.exists():
-        return redirect("/")
-    product = qs.first()
+    product_id = request.session.get('product_id') or None
+    if product_id == None:
+        return redirect('/')
+    product = None
+    try:
+        product = Product.objects.get(id=product_id)
+    except:
+        # message success
+        return redirect('/')
     # if product.has_inventory == 0:
     #     return redirect('/no-inventory')
     user = request.user
@@ -47,7 +52,8 @@ def order_checkout_view(request):
 
     context = { 
         'form': form,
-        'object': order_obj
+        'object': order_obj,
+        'is_digital': product.is_digital
     }
     print(order_id)
     return render(request,'orders/checkout.html',context)

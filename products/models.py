@@ -22,6 +22,19 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10,decimal_places=2, default=0.00)
     inventory = models.IntegerField(default = 0)
     featured = models.BooleanField(default = False)
+    can_backorder = models.BooleanField(default=False)
+
+    @property
+    def is_digital(self):
+        return self.media != None
+        
+    @property
+    def can_order(self):
+        if self.has_inventory():
+            return True
+        elif self.can_backorder:
+            return True
+        return False
 
 
     def has_inventory(self):
