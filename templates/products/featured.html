@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+<!-- {% extends "base.html" %}
 
 {% block content %}
     {% if can_order %}
@@ -10,8 +10,12 @@
         <a href="/checkout"> ₨.{{product.price}} Purchase</a>
     {% else %}
 
-    {{ form.as_p }}
+     {{ form.as_p }}
+    {% include 'snippets/forms.html' with forms=forms submit_btn='Add to waitlist' %}
     
+
     {% endif %}
 
-{% endblock content %}
+{% endblock content %} -->
+
+======================= DELETED FILE =======================

@@ -1,0 +1,21 @@
+<h1>{{ product.title}}</h1>
+        {% if product.images %}
+            <img src="{{ product.images.url }}" style="width:20%;" alt="Product Image" />
+        {% endif %}
+        {% if product.video_link %}
+        <iframe width="560" height="315" 
+        src="{{product.video_link}}" 
+        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        {% endif %}
+
+        {% if product.content %}
+        <p>{{ product.content}}</p>
+        {%endif %}
+
+        {% if show_price %}
+        <p> ₨.{{ product.price}}</p>
+        {%endif %}
+
+        {% if show_content %}
+        <p>{{ product.inventory}}</p>
+        {%endif %}

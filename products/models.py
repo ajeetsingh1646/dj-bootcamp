@@ -16,6 +16,7 @@ class Product(models.Model):
     user = models.ForeignKey(User, null=True,on_delete= models.SET_NULL)
     # user = models.ForeignKey(User, null=True,on_delete= models.CASCADE)
     images = models.ImageField(upload_to='products/',null=True,blank=True)
+    video_link = models.TextField(blank=True, null=True)
     media = models.FileField(storage=ProtectedStorage,upload_to='products/',null=True,blank=True)
     title = models.CharField(max_length=200)
     content = models.TextField(null=True,blank=True)
@@ -35,6 +36,14 @@ class Product(models.Model):
         elif self.can_backorder:
             return True
         return False
+
+    @property
+    def can_backorder_btn(self):
+        if self.can_order and not self.has_inventory():
+            return 'Backorder'
+        if not self.can_order:
+            return 'Cannot Purchase.'
+        return 'Purchase'
 
 
     def has_inventory(self):

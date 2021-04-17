@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<form action="." method="POST">
+<!-- <form action="." method="POST">
   {% csrf_token %}
   <div class="form-row align-items-center">
     <div class="col-auto">
@@ -20,7 +20,17 @@
       <button type="submit" class="btn btn-primary mb-2">Complete Order</button>
     </div>
   </div>
-</form>
+</form> -->
 
+<p>
+  <b>Subtotal</b> {{object.subtotal}}
+</p>
+<p>
+  <b>Tax</b> {{object.tax}}
+</p>
+<p>
+  <b>Total</b> {{object.total}}
+</p>
+{% include 'snippets/forms.html' with forms=forms submit_btn='Complete Order'%}
 
 {% endblock %}

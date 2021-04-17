@@ -21,5 +21,7 @@ class InventoryWaitlistForm(forms.ModelForm):
         email = cleaned_data.get('email')
         qs = InventoryWaitlist.objects.filter(product = self.product, email__iexact=email)
         if qs.count() > 5:
-            raise self.add_error('email','10-4 We have your waitlist entry for this product')
+            error_msg = '10-4 We have your waitlist entry for this product'
+            # raise self.add_error('email',error_msg)
+            raise forms.ValidationError(error_msg)
         return cleaned_data

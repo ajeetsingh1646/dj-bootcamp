@@ -40,12 +40,12 @@ def featured_product_view(request, *args, **kwargs):
                 return redirect('/waitlist-success')
 
     context = {
-        'product': product,
+        'object': product,
         'can_order': can_order,
         'form': form,
     }
 
-    return render(request,'products/featured.html',context)
+    return render(request,'products/detail.html',context)
 
 @staff_member_required
 def product_create_view(request, *args, **kwargs):
