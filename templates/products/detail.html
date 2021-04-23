@@ -6,17 +6,20 @@
  
 
 {% block content %}
-
+<div class="row">
+    <div class="col">
 {% include 'products/snippets/product_detail.html' with product=object %}
-
+</div>
+<div class="col">
 {% if can_order %}
     
-    <a href="/checkout"> ₨.{{object.price}} {{object.can_backorder_btn}}</a>
+    <a class="btn btn-primary" href="/checkout"> ₨.{{object.price}} {{object.can_backorder_btn}}</a>
 
 {% else %}
 {% if forms %}
 {% include 'snippets/forms.html' with forms=forms submit_btn='Add to waitlist' %}
 {% endif %}
 {% endif %}
-
+</div>
+</div>
 {% endblock content %}

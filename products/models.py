@@ -24,11 +24,18 @@ class Product(models.Model):
     inventory = models.IntegerField(default = 0)
     featured = models.BooleanField(default = False)
     can_backorder = models.BooleanField(default=False)
+    required_shipping = models.BooleanField(default=False)
+    is_digital = models.BooleanField(default=False)
+    
 
     @property
     def is_digital(self):
         return self.media != None
-        
+          
+    @property
+    def required_shipping(self):
+        return not self .is_digital
+
     @property
     def can_order(self):
         if self.has_inventory():

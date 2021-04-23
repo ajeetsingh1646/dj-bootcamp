@@ -38,13 +38,11 @@ def featured_product_view(request, *args, **kwargs):
                     obj.user = request.user
                 obj.save()
                 return redirect('/waitlist-success')
-
     context = {
         'object': product,
         'can_order': can_order,
         'form': form,
     }
-
     return render(request,'products/detail.html',context)
 
 @staff_member_required

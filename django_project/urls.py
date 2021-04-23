@@ -22,7 +22,7 @@ from accounts.views import (
     logout_view
 )
 from django.views.generic import TemplateView
-from orders.views import order_checkout_view, download_order
+from orders.views import order_checkout_view, download_order,my_order_view
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -33,8 +33,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('search/', views.search_view),
     path('login/', login_view),
+    path('success/', my_order_view),
+    path('orders/', my_order_view),
     path('checkout/', order_checkout_view),
-    path('download/', download_order),
+    path('orders/<int:order_id>/download/', download_order),
     path('register/', register_view),
     path('logout/', logout_view),
     #path('bad_view/', views.bad_view),
